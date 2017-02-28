@@ -1,4 +1,4 @@
-module ins_dec(ins,carry,zero,aload,bload,dsel,rfload,str,opsel,jump,hlt);
+module insdec(ins,carry,zero,aload,bload,dsel,rfload,str,opsel,jump,hlt);
 input [3:0] ins;
 input carry,zero;
 output aload,bload,dsel,rfload,str,opsel,jump,hlt;
@@ -119,7 +119,7 @@ always @(*)
 		rfload=0;
 		str=1;
 		opsel=0;
-		jump=1;	
+		jump=0;	
 		hlt=1;	
 	end else begin
 		bload=0;
@@ -131,52 +131,4 @@ always @(*)
 		jump=0;
 		hlt=0;	
 	end
-endmodule
-module insdec_tb();
-reg [3:0] ins;
-reg carry, zero;
-wire aload,bload,dsel,rfload,opsel,jump,hlt;
-ins_dec insdec(.ins (ins),
-.carry (carry),
-.zero (zero),
-.aload (aload),
-.bload (bload),
-.dsel (dsel),
-.rfload (rfload),
-.opsel (opsel),
-.jump (jump),
-.hlt (hlt)
-);
-initial begin
-$monitor("ins=%h,carry=%b,zero=%b,aload=%b,bload=%b,dsel=%b,rfload=%b,opsel=%b,jump=%b,hlt=%b",
-		  	ins,
-		  	carry,
-		  	zero,
-			aload,
-			bload,
-			dsel,
-			rfload,
-			opsel,
-			jump,
-			hlt);
-ins=0;
-carry=0;
-zero=0;
-#1 ins=1;
-#1 ins=2;
-#1 ins=3;
-#1 ins=4;
-#1 ins=5;
-#1 ins=6;
-#1 ins=7;
-#1 ins=8;carry=1;
-#1 ins=8;carry=0;
-#1 ins=9;carry=1;
-#1 ins=9;carry=0;
-#1 ins=10;zero=1;
-#1 ins=10;zero=0;
-#1 ins=11;zero=1;
-#1 ins=11;zero=0;
-#1 ins=12;
-end
 endmodule
